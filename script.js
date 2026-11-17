@@ -80,6 +80,7 @@ const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const btn = $("#openBtn");
 
   btn.addEventListener("click", () => {
+    window.__playMusic && window.__playMusic();
     overlay.classList.add("opened");
     window.__stopParticles && window.__stopParticles();
     main.hidden = false;
@@ -166,14 +167,19 @@ function initReveals() {
   const box = $("#lightbox");
   const img = $("#lightboxImg");
   const close = $(".lightbox-close");
+  const hint = $("#lightboxHint");
+
+  function show(src, alt, withHint) {
+    img.src = src;
+    img.alt = alt;
+    hint.hidden = !withHint;
+    box.hidden = false;
+    document.body.style.overflow = "hidden";
+  }
+  window.__showImage = show;
 
   $$(".framed-photo img").forEach((el) => {
-    el.closest("figure").addEventListener("click", () => {
-      img.src = el.src;
-      img.alt = el.alt;
-      box.hidden = false;
-      document.body.style.overflow = "hidden";
-    });
+    el.closest("figure").addEventListener("click", () => show(el.src, el.alt, false));
   });
 
   function hide() {
@@ -192,44 +198,65 @@ function initReveals() {
   const audio = $("#bgMusic");
   const btn = $("#musicBtn");
 
-  btn.addEventListener("click", async () => {
-    try {
-      if (audio.paused) {
-        await audio.play();
-        btn.classList.add("playing");
-        btn.setAttribute("aria-label", "Pause background music");
-      } else {
-        audio.pause();
-        btn.classList.remove("playing");
-        btn.setAttribute("aria-label", "Play background music");
-      }
-    } catch (err) {
-      console.warn("Audio playback blocked:", err);
-    }
+  function setState(playing) {
+    btn.classList.toggle("playing", playing);
+    btn.setAttribute("aria-label", playing ? "Pause background music" : "Play background music");
+  }
+
+  window.__playMusic = () =>
+    audio.play().then(() => setState(true)).catch((err) => console.warn("Audio playback blocked:", err));
+
+  btn.addEventListener("click", () => {
+    if (audio.paused) window.__playMusic();
+    else { audio.pause(); setState(false); }
   });
 })();
 
 /* ==========================================================
-   THANK-YOU CARD — download images/photo8.jpg directly
+   THANK-YOU CARD — images/photo8.jpg
+   iPhone / phones: share sheet -> "Save Image" (saves to Photos).
+   If the share sheet is unavailable (e.g. Telegram's browser),
+   show the card with a "press and hold -> Save to Photos" hint.
+   Computers: direct download.
    ========================================================== */
 (function thankYouCard() {
   const btn = $("#cardBtn");
+  const name = btn.getAttribute("download");
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const isTouch = matchMedia("(pointer: coarse)").matches;
+  let file = null;
+
+  // Pre-load so the share sheet opens instantly (iOS requires it to
+  // open right after the tap).
+  fetch(btn.href)
+    .then((r) => (r.ok ? r.blob() : Promise.reject(r.status)))
+    .then((b) => { file = new File([b], name, { type: b.type || "image/jpeg" }); })
+    .catch(() => {});
+
+  const showForSaving = () => window.__showImage(btn.href, "Thank you card", true);
 
   btn.addEventListener("click", async (e) => {
     e.preventDefault();
-    try {
-      const res = await fetch(btn.href);
-      if (!res.ok) throw new Error(res.status);
-      const url = URL.createObjectURL(await res.blob());
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = btn.getAttribute("download");
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 4000);
-    } catch (err) {
-      console.warn("Card download failed:", err);
+
+    if (file && isTouch && navigator.canShare && navigator.canShare({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file] });
+        return;
+      } catch (err) {
+        if (err.name === "AbortError") return;
+      }
     }
+
+    if (isIOS || isTouch || !file) return showForSaving();
+
+    const url = URL.createObjectURL(file);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
   });
 })();
