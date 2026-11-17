@@ -265,6 +265,17 @@ img { display: block; max-width: 100%; }
   padding: 0 0.5rem;
 }
 
+.kirstna {
+  font-weight: 700;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  color: var(--pink-deep);
+  margin-top: 0.3rem;
+}
+.kirstna-hero { font-size: clamp(2.4rem, 7vw, 3.6rem); margin: 0 0 0.8rem; }
+.kirstna-top { margin: 0 0 0.4rem; }
+
 .baptism-word {
   font-family: var(--serif);
   font-size: clamp(0.95rem, 2.4vw, 1.25rem);
