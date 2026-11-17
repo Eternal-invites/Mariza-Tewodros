@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holy Baptism Invitation</title>
+<meta name="description" content="Ethiopian Orthodox Holy Baptism Invitation">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=6">
+</head>
+<body>
+
+<!-- ============================================================
+     ETHIOPIAN ORTHODOX BAPTISM INVITATION
+     EDIT GUIDE:
+     - Baby name, dates, venues, parents: search for "EDIT"
+     - Countdown date & thank-you card text: top of script.js (CONFIG)
+============================================================ -->
+
+<!-- ====== MUSIC (fixed button) ====== -->
+<audio id="bgMusic" src="music/baptism-music.mp3?v=2" loop preload="auto"></audio>
+<button id="musicBtn" class="music-btn" aria-label="Play background music" title="Music">
+  <svg class="ic-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <path d="M9 18V5l11-2v13"/>
+    <circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>
+  </svg>
+  <span class="music-slash"></span>
+</button>
+
+<!-- ====== OPENING OVERLAY ====== -->
+<div id="opening" class="opening">
+  <canvas id="particles" class="particles" aria-hidden="true"></canvas>
+  <div class="door door-left" aria-hidden="true"></div>
+  <div class="door door-right" aria-hidden="true"></div>
+
+  <div class="opening-inner">
+    <div class="flourish" aria-hidden="true">
+      <svg viewBox="0 0 300 24"><path d="M0 12 C40 2, 80 22, 120 12 S170 2, 210 12 S280 22, 300 12" fill="none" stroke="#DB8DA8" stroke-width="1.5"/><circle cx="150" cy="12" r="3" fill="#DB8DA8"/><circle cx="20" cy="12" r="2" fill="#F2CFD9"/><circle cx="280" cy="12" r="2" fill="#F2CFD9"/></svg>
+    </div>
+
+    <p class="opening-eyebrow">WITH THE GRACE OF GOD</p>
+
+    <div class="opening-photos">
+      <!-- EDIT: replace images/photo1.jpg and photo2.jpg -->
+      <figure class="frame frame-a">
+        <img src="images/photo1.jpg" alt="Baby photo 1">
+      </figure>
+      <figure class="frame frame-b">
+        <img src="images/photo2.jpg" alt="Baby photo 2">
+      </figure>
+    </div>
+
+    <h1 class="baby-name">Mariza Tewodros</h1>
+    <p class="baptism-word">HOLY BAPTISM</p>
+
+    <p class="opening-message">
+      <!-- EDIT: short invitation message -->
+      Together with their family, we joyfully invite you to share in the
+      blessed celebration of the Holy Baptism of our beloved child.
+    </p>
+
+    <button id="openBtn" class="btn-gold btn-open">
+      <span>OPEN INVITATION</span>
+    </button>
+
+    <div class="flourish flip" aria-hidden="true">
+      <svg viewBox="0 0 300 24"><path d="M0 12 C40 2, 80 22, 120 12 S170 2, 210 12 S280 22, 300 12" fill="none" stroke="#DB8DA8" stroke-width="1.5"/><circle cx="150" cy="12" r="3" fill="#DB8DA8"/><circle cx="20" cy="12" r="2" fill="#F2CFD9"/><circle cx="280" cy="12" r="2" fill="#F2CFD9"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MAIN INVITATION ====== -->
+<main id="main" class="main" hidden>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="glow" aria-hidden="true"></div>
+    <p class="eyebrow reveal">YOU ARE WARMLY INVITED TO THE</p>
+    <h2 class="hero-title reveal">Holy Baptism</h2>
+    <p class="hero-name reveal script">Mariza Tewodros</p>
+    <div class="hero-verse reveal">
+      <p class="am verse-am">ጌታችን ኢየሱስም መልሶ እንዲህ አለው፥ እውነት እውነት እልሀለሁ፤ ዳግመኛ ከውኃና ከመንፈስ ቅዱስ ያልተወለደ ሰው ወደ እግዚአብሔር መንግሥት ሊገባ አይችልም።</p>
+      <span class="am">— የዮሐንስ ወንጌል 3፡5</span>
+      <p class="verse-en">"Jesus answered, Verily, verily, I say unto thee, Except a man be born of water and of the Spirit, he cannot enter into the kingdom of God."</p>
+      <span>— John 3:5</span>
+    </div>
+    <div class="scroll-hint" aria-hidden="true"><span></span></div>
+  </section>
+
+  <!-- BAPTISM DETAILS -->
+  <section id="details" class="section">
+    <h2 class="section-title reveal">The Blessed Details</h2>
+    <div class="title-ornament reveal" aria-hidden="true"></div>
+
+    <div class="info-grid">
+      <!-- EDIT all card values below -->
+      <div class="info-card reveal">
+        <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12 2v6M9 5h6M12 8v14M8 22h8" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+        <h3>Baby's Name</h3><p>Mariza Tewodros</p>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+        <h3>Date</h3><p><span class="am">ህዳር 12, 2019</span><br>Nov 21, 2026</p>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
+        <h3>Time</h3><p>7:30 LT</p>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.6" fill="none"/></svg></div>
+        <h3>Location</h3><p><a href="https://maps.app.goo.gl/pWPL6CdGmVNrQp5z9" target="_blank" rel="noopener" style="color:inherit">Our Home</a></p>
+      </div>
+      <div class="info-card reveal">
+        <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M8 21v-2a4 4 0 014-4 4 4 0 014 4v2M12 11a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M4 20c.5-2.5 2-4 4-4M20 20c-.5-2.5-2-4-4-4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".6"/></svg></div>
+        <h3>Parents</h3><p>Father: Tewodros Mulatu<br>Mother: Mistir Tefera</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO 3 (after details) -->
+  <section class="photo-feature">
+    <figure class="frame frame-feature reveal framed-photo">
+      <!-- EDIT: replace images/photo3.jpg -->
+      <img src="images/photo3.jpg" alt="Baby photo">
+      <figcaption>Our Little Blessing</figcaption>
+    </figure>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section id="countdown" class="section countdown-section">
+    <h2 class="section-title reveal">Counting Down to This Blessed Day</h2>
+    <div class="title-ornament reveal" aria-hidden="true"></div>
+
+    <div class="countdown-wrap">
+      <div class="countdown-grid reveal" id="countdownGrid">
+        <div class="count-card"><span class="count-num" id="cdDays">00</span><span class="count-label">Days</span></div>
+        <div class="count-card"><span class="count-num" id="cdHours">00</span><span class="count-label">Hours</span></div>
+        <div class="count-card"><span class="count-num" id="cdMins">00</span><span class="count-label">Minutes</span></div>
+        <div class="count-card"><span class="count-num" id="cdSecs">00</span><span class="count-label">Seconds</span></div>
+      </div>
+      <p class="countdown-done" id="countdownDone" hidden>The blessed day has arrived — glory be to God!</p>
+
+      <figure class="frame frame-side reveal framed-photo">
+        <!-- EDIT: replace images/photo4.jpg -->
+        <img src="images/photo4.jpg" alt="Baby photo">
+      </figure>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section id="program" class="section">
+    <h2 class="section-title reveal">Baptism Program</h2>
+    <div class="title-ornament reveal" aria-hidden="true"></div>
+
+    <div class="program-wrap">
+      <figure class="frame frame-side reveal framed-photo">
+        <!-- EDIT: replace images/photo5.jpg -->
+        <img src="images/photo5.jpg" alt="Baby photo">
+      </figure>
+
+      <ol class="timeline">
+        <!-- EDIT program events -->
+        <li class="timeline-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24"><path d="M16 11a3 3 0 100-6 3 3 0 000 6zM8 11a3 3 0 100-6 3 3 0 000 6zM2 20c0-3 2.7-5 6-5M22 20c0-3-2.7-5-6-5m-8 5c0-3.3 1.8-5 4-5s4 1.7 4 5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg></div>
+          <div class="t-body"><span class="t-time">7:30 LT</span><h3>Guest Arrival</h3><p>Guests are warmly welcomed at our home.</p></div>
+        </li>
+        <li class="timeline-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24"><path d="M6 11V7a6 6 0 0112 0v4M4 11h16v3a8 8 0 01-16 0v-3z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/><path d="M12 3v1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="t-body"><span class="t-time">8:00 LT</span><h3>Lunch</h3></div>
+        </li>
+        <li class="timeline-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.3-9A5.4 5.4 0 0112 6.5 5.4 5.4 0 0121.3 12C19 16.5 12 21 12 21z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg></div>
+          <div class="t-body"><span class="t-time">9:30 LT</span><h3>Appreciation Ceremony</h3></div>
+        </li>
+        <li class="timeline-item reveal">
+          <div class="t-icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="12" cy="13.5" r="3.5" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 7l1.5-3h5L16 7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg></div>
+          <div class="t-body"><span class="t-time">10:30 LT</span><h3>Photo Ceremony</h3></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="location" class="section">
+    <h2 class="section-title reveal">Where to Find Us</h2>
+    <div class="title-ornament reveal" aria-hidden="true"></div>
+
+    <figure class="frame frame-wide reveal framed-photo">
+      <!-- EDIT: replace images/photo6.jpg -->
+      <img src="images/photo6.jpg" alt="Baby photo">
+    </figure>
+
+    <div class="location-grid">
+      <div class="location-card reveal">
+        <div class="info-icon"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V9l6-4 6 4v11M10 20v-4h4v4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="11" r="1.6" stroke="currentColor" stroke-width="1.4" fill="none"/></svg></div>
+        <h3>Location</h3>
+        <!-- EDIT house maps link -->
+        <p class="loc-name">Our Home</p>
+        <p class="loc-addr">Lunch at 7:30 LT</p>
+        <a class="btn-gold btn-small" href="https://maps.app.goo.gl/pWPL6CdGmVNrQp5z9" target="_blank" rel="noopener">VIEW HOUSE LOCATION</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO 7 (between location and thank-you) -->
+  <section class="photo-divider">
+    <figure class="frame frame-circle reveal framed-photo">
+      <!-- EDIT: replace images/photo7.jpg -->
+      <img src="images/photo7.jpg" alt="Baby photo">
+    </figure>
+    <p class="divider-text reveal">"Every good and perfect gift is from above." — James 1:17</p>
+  </section>
+
+  <!-- THANK YOU -->
+  <section id="thanks" class="section thanks">
+    <div class="glow" aria-hidden="true"></div>
+    <h2 class="section-title reveal">Thank You for Sharing Our Joy</h2>
+    <div class="title-ornament reveal" aria-hidden="true"></div>
+
+    <div class="thanks-wrap">
+      <figure class="frame frame-side reveal framed-photo">
+        <!-- EDIT: replace images/photo8.jpg -->
+        <img src="images/photo8.jpg" alt="Baby photo">
+      </figure>
+      <div class="thanks-body reveal">
+        <p class="thanks-message">
+          Thank you for being part of this blessed celebration. Your presence,
+          prayers, love, and blessings mean so much to our family.
+          May God bless you abundantly.
+        </p>
+        <div class="thanks-actions">
+          <button id="cardBtn" class="btn-gold"><span>DOWNLOAD THANK YOU CARD</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <svg class="foot-cross" viewBox="0 0 200 270" aria-hidden="true">
+      <g fill="#DB8DA8">
+        <rect x="94" y="40" width="12" height="170" rx="6"/>
+        <rect x="50" y="72" width="100" height="10" rx="5"/>
+        <rect x="64" y="112" width="72" height="9" rx="4.5"/>
+        <rect x="76" y="150" width="48" height="8" rx="4"/>
+      </g>
+    </svg>
+    <p class="footer-name script">Mariza Tewodros</p>
+    <p class="footer-sub">Holy Baptism &middot; With Love &amp; Blessings</p>
+  </footer>
+</main>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox" hidden>
+  <button class="lightbox-close" aria-label="Close">&times;</button>
+  <img id="lightboxImg" src="" alt="Enlarged photo">
+</div>
+
+<canvas id="cardCanvas" width="1080" height="1350" hidden></canvas>
+
+<script src="script.js?v=6"></script>
+</body>
+</html>
