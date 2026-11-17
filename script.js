@@ -7,11 +7,6 @@
    Format: "YYYY-MM-DDTHH:MM:SS" (24-hour time).  */
 const CONFIG = {
   baptismDate: "2026-11-21T00:00:00+03:00", // Nov 21, 2026 (ህዳር 12, 2019) — Addis Ababa time
-  cardTitle: "Holy Baptism",            // thank-you card subtitle
-  cardMessage:
-    "Thank you for being part of this blessed celebration. " +
-    "Your presence, prayers, love, and blessings mean so much " +
-    "to our family. May God bless you abundantly.",
 };
 /* ============================================== */
 
@@ -215,158 +210,26 @@ function initReveals() {
 })();
 
 /* ==========================================================
-   THANK-YOU CARD — drawn on canvas, downloaded as PNG
+   THANK-YOU CARD — download images/photo8.jpg directly
    ========================================================== */
 (function thankYouCard() {
-  const canvas = $("#cardCanvas");
   const btn = $("#cardBtn");
-  const ctx = canvas.getContext("2d");
-  const W = canvas.width, H = canvas.height;
 
-  const GOLD = "#DB8DA8", DEEP = "#AD6078", SOFT = "#F2CFD9",
-        IVORY = "#FFF9F6", INK = "#6E4A56";
-
-  function wrapText(text, x, y, maxW, lh, font, color) {
-    ctx.font = font;
-    ctx.fillStyle = color;
-    const words = text.split(" ");
-    let line = "", lines = [];
-    for (const w of words) {
-      const test = line ? line + " " + w : w;
-      if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; }
-      else line = test;
-    }
-    lines.push(line);
-    lines.forEach((l, i) => ctx.fillText(l, x, y + i * lh));
-    return y + lines.length * lh;
-  }
-
-  function drawCross(cx, cy, s) {
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.fillStyle = GOLD;
-    ctx.strokeStyle = DEEP;
-    ctx.lineWidth = s * 0.012;
-    const t = s * 0.085;
-    const rr = (x, y, w, h, r) => { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); ctx.fill(); ctx.stroke(); };
-    rr(-t, -s * 0.5, t * 2, s, t);
-    rr(-s * 0.36, -s * 0.30, s * 0.72, s * 0.075, s * 0.037);
-    rr(-s * 0.30, -s * 0.10, s * 0.60, s * 0.065, s * 0.032);
-    rr(-s * 0.24, s * 0.09, s * 0.48, s * 0.055, s * 0.027);
-    ctx.lineWidth = s * 0.028;
-    const ring = (x, y, r) => { ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.stroke(); };
-    ring(0, -s * 0.56, s * 0.075);
-    ring(-s * 0.36, -s * 0.263, s * 0.06); ring(s * 0.36, -s * 0.263, s * 0.06);
-    ring(-s * 0.30, -s * 0.067, s * 0.05); ring(s * 0.30, -s * 0.067, s * 0.05);
-    ring(-s * 0.24, s * 0.118, s * 0.042); ring(s * 0.24, s * 0.118, s * 0.042);
-    ring(0, s * 0.56, s * 0.07);
-    ctx.restore();
-  }
-
-  function cornerFlourish(x, y, sx, sy) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.scale(sx, sy);
-    ctx.strokeStyle = GOLD;
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    for (let i = 0; i <= 60; i++) {
-      const a = (i / 60) * Math.PI * 2.1;
-      const r = 90 * (1 - i / 75);
-      const px = r * Math.cos(a), py = r * Math.sin(a) * 0.75;
-      i ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
-    }
-    ctx.stroke();
-    ctx.fillStyle = GOLD;
-    [[0.35, 58], [0.62, 76], [0.85, 34]].forEach(([t, r0]) => {
-      const a = t * Math.PI * 2.1;
-      ctx.beginPath();
-      ctx.arc(r0 * Math.cos(a), r0 * Math.sin(a) * 0.75, 6, 0, Math.PI * 2);
-      ctx.fill();
-    });
-    ctx.restore();
-  }
-
-  function draw() {
-    if (!ctx.roundRect) {
-      ctx.roundRect = function (x, y, w, h) { this.rect(x, y, w, h); };
-    }
-    const babyName = $(".baby-name").textContent.trim() || "Our Little Blessing";
-
-    // background
-    ctx.fillStyle = IVORY;
-    ctx.fillRect(0, 0, W, H);
-    const rg = ctx.createRadialGradient(W / 2, H * 0.42, 60, W / 2, H * 0.42, H * 0.75);
-    rg.addColorStop(0, "rgba(255,255,255,0.9)");
-    rg.addColorStop(1, "rgba(247,230,232,0.9)");
-    ctx.fillStyle = rg;
-    ctx.fillRect(0, 0, W, H);
-
-    // borders
-    ctx.strokeStyle = GOLD; ctx.lineWidth = 7;
-    ctx.strokeRect(44, 44, W - 88, H - 88);
-    ctx.strokeStyle = SOFT; ctx.lineWidth = 2.5;
-    ctx.strokeRect(64, 64, W - 128, H - 128);
-
-    // corner flourishes
-    cornerFlourish(150, 150, 1, 1);
-    cornerFlourish(W - 150, 150, -1, 1);
-    cornerFlourish(150, H - 150, 1, -1);
-    cornerFlourish(W - 150, H - 150, -1, -1);
-
-    ctx.textAlign = "center";
-    try { ctx.letterSpacing = "10px"; } catch (_) {}
-
-    // eyebrow
-    ctx.font = "600 30px Jost, sans-serif";
-    ctx.fillStyle = DEEP;
-    ctx.fillText("WITH GRATEFUL HEARTS", W / 2, 175);
-
-    // cross
-    drawCross(W / 2, 390, 300);
-
-    // Thank You (script)
-    try { ctx.letterSpacing = "2px"; } catch (_) {}
-    const grad = ctx.createLinearGradient(W / 2 - 300, 0, W / 2 + 300, 0);
-    grad.addColorStop(0, DEEP); grad.addColorStop(0.5, GOLD);
-    grad.addColorStop(0.65, SOFT); grad.addColorStop(1, DEEP);
-    ctx.font = "130px 'Great Vibes', cursive";
-    ctx.fillStyle = grad;
-    ctx.fillText("Thank You", W / 2, 660);
-
-    // baby name + subtitle
-    ctx.font = "86px 'Great Vibes', cursive";
-    ctx.fillStyle = DEEP;
-    ctx.fillText(babyName, W / 2, 790);
-    try { ctx.letterSpacing = "14px"; } catch (_) {}
-    ctx.font = "600 34px 'Cormorant Garamond', serif";
-    ctx.fillText(CONFIG.cardTitle.toUpperCase(), W / 2, 860);
-    try { ctx.letterSpacing = "0px"; } catch (_) {}
-
-    // divider
-    ctx.strokeStyle = GOLD; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(W / 2 - 180, 910); ctx.lineTo(W / 2 - 26, 910); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(W / 2 + 26, 910); ctx.lineTo(W / 2 + 180, 910); ctx.stroke();
-    ctx.fillStyle = GOLD;
-    ctx.save();
-    ctx.translate(W / 2, 910); ctx.rotate(Math.PI / 4);
-    ctx.fillRect(-9, -9, 18, 18);
-    ctx.restore();
-
-    // message
-    wrapText(CONFIG.cardMessage, W / 2, 985, W - 320, 52,
-      "italic 40px 'Cormorant Garamond', serif", INK);
-  }
-
-  btn.addEventListener("click", async () => {
-    try { await document.fonts.ready; } catch (_) {}
-    draw();
-    canvas.toBlob((blob) => {
+  btn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(btn.href);
+      if (!res.ok) throw new Error(res.status);
+      const url = URL.createObjectURL(await res.blob());
       const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "thank-you-card.png";
+      a.href = url;
+      a.download = btn.getAttribute("download");
+      document.body.appendChild(a);
       a.click();
-      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-    }, "image/png");
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 4000);
+    } catch (err) {
+      console.warn("Card download failed:", err);
+    }
   });
 })();
